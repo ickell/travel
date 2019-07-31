@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block contents %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NEW</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new.css' %}?ver=2">
+</head>
+<body>
+<div class="container" id="box-form">
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+        </table>
+        <br>
+        <input id="submit" class="btn btn-outline-success my-2" type="submit" value="제출하기">
+    </form>
+    <br>
+    <a class="btn btn-outline-success my-2" href="{% url 'index' %}">뒤로가기</a>
+</div>
+</body>
+</html>
+{% endblock %}

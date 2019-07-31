@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block contents %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    {% for post in posts_show.all %}
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{post.title}}</h3>
+            <p class="card-text">{{post.summary}}</p>
+            <a href="{% url 'detail' post.id %}" class="card-link">...more</a>
+        </div>
+    </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+    <button class="btn btn-primary" type="button" onclick="location.href='{% url 'newpost' %}'">글쓰기</button>
+    {% endif %}
+</div>
+</body>
+</html>
+{% endblock %}

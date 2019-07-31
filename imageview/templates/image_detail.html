@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<div>
+    <h1>
+        goob
+        {{ posts.title }}
+    </h1>
+    <img src="{{ posts.image.url }}" alt="">
+    <p>{{ posts.description }}</p>
+
+    {% for comment in posts.comments.all %}
+        <div>
+            <div class="date">{{ comment.comment_date }}</div>
+            <strong>{{ comment.comment_writer }}</strong>
+            <p>{{ comment.comment_contents }}</p>
+        </div>
+    {% empty %}
+        <p>댓글이 없습니다.</p>
+    {% endfor %}
+    <form action="{% url 'comment_write' post_pk=posts.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="content" placeholder="댓글 작성">
+        <input type="submit" value="Write">
+    </form>
+</div>
+{% endblock contents %}

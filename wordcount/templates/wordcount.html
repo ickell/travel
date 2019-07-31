@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word count</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block contents %}
+<div class="container">
+    <form action="{% url 'result' %}">
+        <textarea class="form-control" rows="20" name="fulltext"></textarea>
+        <br>
+        <input class="btn btn-primary" type="submit" value="Count">
+    </form>
+</div>
+{% endblock %}
+</body>
+</html>

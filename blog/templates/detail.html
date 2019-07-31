@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block contents %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h1>자세한 본문 내용</h1>
+    <br><br>
+    <h1> 제목 : {{posts.title}} </h1>
+    <p> 작성 날짜 : {{posts.pub_date}} </p>
+    <p> 자세한 본문 : {{posts.descrition}} </p>
+    <p> 이미지 : <img src="{{posts.image.url}}" alt=""></p>
+    <br><br>
+    {% for comment in post.comments.all %}
+        <div>
+            <div class="date">{{ comment.comment_date }}</div>
+            <strong><a href="{% url 'userpage' comment.comment_writer %}">{{ comment.comment_writer }}</a></strong>
+            <p>{{ comment.comment_contents }}</p>
+        </div>
+    {% empty %}
+        <p>댓글이 없습니다.</p>
+    {% endfor %}
+    {% if post.author == user.username %}
+        <form action="{% url 'comment_write' post_pk=post.pk %}" method="POST">
+        {% csrf_token %}
+            <input type="text" name="content" placeholder="댓글 작성">
+            <input type="submit" value="Write">
+        </form>
+        <a class="btn btn-primary" href="{% url 'editpost' post.id %}">수정하기</a>
+        <a class="btn btn-primary" href="{% url 'delete' post.id %}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제하기</a>
+    {% endif %}
+    <a class="btn btn-primary" href="{% url 'index' %}">글 목록</a>
+</div>
+</body>
+</html>
+{% endblock %}
